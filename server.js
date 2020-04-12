@@ -18,6 +18,10 @@ app.get('/hello', (req, res) => {
     res.render('pages/index');
 });
 
+app.post('/new', (req, res) => {
+    res.render('pages/searches/new')
+})
+
 
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
