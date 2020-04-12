@@ -18,10 +18,41 @@ app.get('/hello', (req, res) => {
     res.render('pages/index');
 });
 
-app.post('/new', (req, res) => {
+app.get('/new', (req, res) => {
     res.render('pages/searches/new')
 })
 
+app.post('/searches', (request, response) => {
 
+    let keyWord = request.body.searched;
+    let filter = request.body.searchFilter;
+
+    let apiURL = `https://www.googleapis.com/books/v1/volumes?q=${keyWord}+in${filter}`
+    superagent.get(apiURL).then((apiRes) => {
+
+        let bookData = apiRes.body.items;
+
+        let book = bookData.map(item => {
+            return new Book(item.volumeInfo);
+        })
+        response.render('pages/searches/show', { book: book });
+
+    }).catch((err) => errorHandler(err, request, response))
+
+})
+
+function Book(data) {
+    this.authors = data.volumeInfo.authors;
+    this.title = data.volumeInfo.title;
+    this.description = data.volumeInfo.description;
+    this.img_url = data.volumeInfo.imageLinks.thumbnail;
+}
+app.use('*', (request, response) => {
+    response.status(404).send('Page not found');
+});
+
+function errorHandler(error, request, response) {
+    response.status(500).send(error);
+}
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));

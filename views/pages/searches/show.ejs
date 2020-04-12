@@ -9,6 +9,36 @@
 
 <body>
 
+    <header>
+
+    </header>
+    <main>
+
+        <h1>Results:</h1>
+
+
+        <div>
+            <% book.forEach(item => {%>
+                <section>
+                    <img src="<%=item.imageThum%>">
+                    <h2>
+                        <%=item.title%>
+                    </h2>
+                    <p>
+                        <%=item.author%>
+                    </p>
+                    <p>
+                        <%=item.description%>
+                    </p>
+                </section>
+                <%})%>
+
+        </div>
+
+    </main>
+    <footer>
+
+    </footer>
 </body>
 
 </html>
