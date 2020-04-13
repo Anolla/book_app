@@ -14,31 +14,24 @@
     </header>
     <main>
 
-        <h1>Results:</h1>
-
-
-        <div>
-            <% book.forEach(item => {%>
-                <section>
-                    <img src="<%=item.imageThum%>">
-                    <h2>
-                        <%=item.title%>
-                    </h2>
+        <h1>Best Books!</h1>
+        <h2>Search Results</h2>
+        <ul>
+            <% books.forEach(element => { %>
+                <li>
                     <p>
-                        <%=item.author%>
+                        <%=element.Title %>
+                    </p>
+                    <p><img src=<%=element.img_url %>></p>
+                    <p>
+                        <%=element.Authors%>
                     </p>
                     <p>
-                        <%=item.description%>
+                        <%=element.Description%>
                     </p>
-                </section>
-                <%})%>
-
-        </div>
-
-    </main>
-    <footer>
-
-    </footer>
+                </li>
+                <% }) %>
+        </ul>
 </body>
 
 </html>

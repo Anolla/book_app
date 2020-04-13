@@ -17,14 +17,14 @@
 
 
     <main>
-        <form action="/new" method="POST">
+        <form action="/searches/show" method="POST">
             <fieldset>
                 <label>
-              <input type="search" name="fullName"  placeholder="Enter a title or author" />
+              <input type="search" name="keyword"  placeholder="Enter a title or author" />
             </label>
-                <div class='option'><input type="radio" id="title" name="category" value="title"> search by title </input>
+                <div class='option'><input type="radio" id="title" name="search" value="title"> search by title </input>
                 </div>
-                <div class='option'> <input type="radio" id="author" name="category" value="author"> search by author </input>
+                <div class='option'> <input type="radio" id="author" name="search" value="author"> search by author </input>
                 </div>
                 <button>Search the Google Books API</button>
             </fieldset>
