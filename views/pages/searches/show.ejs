@@ -9,6 +9,29 @@
 
 <body>
 
+    <header>
+
+    </header>
+    <main>
+
+        <h1>Best Books!</h1>
+        <h2>Search Results</h2>
+        <ul>
+            <% books.forEach(element => { %>
+                <li>
+                    <p>
+                        <%=element.Title %>
+                    </p>
+                    <p><img src=<%=element.img_url %>></p>
+                    <p>
+                        <%=element.Authors%>
+                    </p>
+                    <p>
+                        <%=element.Description%>
+                    </p>
+                </li>
+                <% }) %>
+        </ul>
 </body>
 
 </html>
