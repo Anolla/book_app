@@ -35,9 +35,9 @@ app.get('/searches/show', (req, res) => {
 app.post('/searches/show', (req, res) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=quilting`
     if (req.body.search === 'title') {
-        url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}:${req.body.keyword}`
+        url = `https://www.googleapis.com/books/v1/volumes?q=in${req.body.search}:${req.body.input}`
     } else if (req.body.search === 'author') {
-        url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}:${req.body.keyword}`
+        url = `https://www.googleapis.com/books/v1/volumes?q=in${req.body.search}:${req.body.input}`
     }
     return superagent.get(url)
         .then(data => {
