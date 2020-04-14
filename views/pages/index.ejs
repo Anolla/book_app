@@ -2,14 +2,33 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HELLO</title>
-    <link rel="stylesheet" href="/styles/base.css">
+    <%- include('../layout/head') %>
 </head>
 
 <body>
-    <h1>HELLO</h1>
+
+    <div>
+        <p>
+            <%=books.length%> Total number of books</p>
+    </div>
+
+    <div>
+        <ul>
+            <% books.forEach(element => { %>
+
+                <p>
+                    <%=element.title %>
+                </p>
+                <p>
+                    <img src=<%=element.image_url %>>
+                </p>
+                <p>
+                    <%=element.author%>
+                </p>
+                <p><a href="/books/<%=element.id%>">View Details</a></p>
+                <% }) %>
+        </ul>
+    </div>
 
 </body>
 
