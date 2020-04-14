@@ -43,9 +43,9 @@ app.get('/searches/new', (req, res) => {
 app.post('/searches/show', (req, res) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=quilting`
     if (req.body.search === 'title') {
-        url = `https://www.googleapis.com/books/v1/volumes?q= in${req.body.search}:${req.body.input}`
+        url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}:${req.body.input}`
     } else if (req.body.search === 'author') {
-        url = `https://www.googleapis.com/books/v1/volumes?q= in${req.body.search}:${req.body.input}`
+        url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}:${req.body.input}`
     }
     return superagent.get(url)
         .then(data => {
@@ -91,11 +91,13 @@ app.post('/books', (req, res) => {
 
 
 function Book(data) {
-    this.Title = data.volumeInfo.title ? data.volumeInfo.title : 'Title Not Found !!';
-    this.Authors = data.volumeInfo.authors ? data.volumeInfo.authors : 'Author Not Found !!';
-    this.Description = data.volumeInfo.description ? data.volumeInfo.description : 'Descripton Not Found !!';
-    this.img_url = data.volumeInfo.imageLinks.thumbnail ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
-    this.isbn = data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier ? data.volumeInfo.industryIdentifiers[0].type + data.volumeInfo.industryIdentifiers[0].identifier : '0';
+
+    this.Title = (data.volumeInfo.title) ? data.volumeInfo.title : 'Title Not Found !';
+    this.Authors = (data.volumeInfo.authors[0]) ? data.volumeInfo.authors[0] : 'Author Not Found !';
+    this.Description = (data.volumeInfo.description) ? data.volumeInfo.description : 'Descripton Not Found !';
+    this.img_url = (data.volumeInfo.imageLinks.thumbnail) ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
+    this.isbn = (data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier) ? data.volumeInfo.industryIdentifiers[0].type + data.volumeInfo.industryIdentifiers[0].identifier : '0';
+
 }
 
 
