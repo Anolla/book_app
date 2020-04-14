@@ -91,11 +91,11 @@ app.post('/books', (req, res) => {
 
 
 function Book(data) {
-    this.Title = data.volumeInfo.title;
-    this.Authors = data.volumeInfo.authors;
-    this.Description = data.volumeInfo.description;
-    this.img_url = data.volumeInfo.imageLinks.thumbnail;
-    this.isbn = data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier;
+    this.Title = data.volumeInfo.title ? data.volumeInfo.title : 'Title Not Found !!';
+    this.Authors = data.volumeInfo.authors ? data.volumeInfo.authors : 'Author Not Found !!';
+    this.Description = data.volumeInfo.description ? data.volumeInfo.description : 'Descripton Not Found !!';
+    this.img_url = data.volumeInfo.imageLinks.thumbnail ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
+    this.isbn = data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier ? data.volumeInfo.industryIdentifiers[0].type + data.volumeInfo.industryIdentifiers[0].identifier : '0';
 }
 
 
