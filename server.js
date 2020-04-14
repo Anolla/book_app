@@ -21,16 +21,24 @@ app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
     // render the index.ejs from the views folder
-    res.render('pages/index');
+    const SQL = 'SELECT * FROM books;';
+    client.query(SQL)
+        .then((data => {
+
+            res.render('pages/index', { books: data.rows });
+        }))
+        .catch((err) => {
+            errorHandler(err, req, res);
+        })
 });
 
 app.get('/searches/new', (req, res) => {
     res.render('pages/searches/new');
 });
 
-app.get('/searches/show', (req, res) => {
-    res.render('pages/searches/new')
-})
+// app.get('/searches/show', (req, res) => {
+//     res.render('pages/searches/new')
+// })
 
 app.post('/searches/show', (req, res) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=quilting`
@@ -50,6 +58,36 @@ app.post('/searches/show', (req, res) => {
         });
 });
 
+app.get('/books/:id', (req, res) => {
+    const SQL = 'SELECT * FROM books WHERE id=$1;';
+    const safeValue = [req.params.id];
+    client
+        .query(SQL, safeValue)
+        .then((data) => {
+            console.log(data)
+            res.render('pages/books/show', { book: data.rows[0] });
+        })
+        .catch((err) => {
+            errorHandler(err, req, res);
+        });
+})
+
+app.post('/books', (req, res) => {
+    const { author, title, isbn, image_url, description, bookshelf } = req.body;
+    const SQL =
+        'INSERT INTO books (author,title,isbn,image_url,description,bookshelf) VALUES ($1,$2,$3,$4,$5,$6);';
+    const safeValues = [author, title, isbn, image_url, description, bookshelf];
+    client
+        .query(SQL, safeValues)
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch((err) => {
+            errorHandler(err, req, res);
+        });
+
+})
+
 
 
 function Book(data) {
@@ -57,6 +95,7 @@ function Book(data) {
     this.Authors = data.volumeInfo.authors;
     this.Description = data.volumeInfo.description;
     this.img_url = data.volumeInfo.imageLinks.thumbnail;
+    this.isbn = data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier;
 }
 
 
