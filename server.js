@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     const SQL = 'SELECT * FROM books;';
     client.query(SQL)
         .then((data => {
-
+            console.log('uedhksjzcnmx,kdfjocxj')
             res.render('pages/index', { books: data.rows });
         }))
         .catch((err) => {
@@ -42,6 +42,7 @@ app.get('/searches/new', (req, res) => {
 
 app.post('/searches/show', (req, res) => {
     let url = `https://www.googleapis.com/books/v1/volumes?q=quilting`
+    console.log('udukdjzkoilujlkjk')
     if (req.body.search === 'title') {
         url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}:${req.body.input}`
     } else if (req.body.search === 'author') {
@@ -50,7 +51,7 @@ app.post('/searches/show', (req, res) => {
     return superagent.get(url)
         .then(data => {
             let books = data.body.items.map((element) => {
-                return new Book(element)
+                return new Book(element);
             })
             res.render('pages/searches/show', { books: books })
         }).catch((err) => {
@@ -92,10 +93,10 @@ app.post('/books', (req, res) => {
 
 function Book(data) {
 
-    this.Title = (data.volumeInfo.title) ? data.volumeInfo.title : 'Title Not Found !';
-    this.Authors = (data.volumeInfo.authors[0]) ? data.volumeInfo.authors[0] : 'Author Not Found !';
+    this.Title = (true && data.volumeInfo.title) || 'Title Not Found !';
+    this.Authors = (data.volumeInfo.authors) ? data.volumeInfo.authors : 'Author Not Found !';
     this.Description = (data.volumeInfo.description) ? data.volumeInfo.description : 'Descripton Not Found !';
-    this.img_url = (data.volumeInfo.imageLinks.thumbnail) ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
+    this.img_url = (data.volumeInfo.imageLinks) ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
     this.isbn = (data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier) ? data.volumeInfo.industryIdentifiers[0].type + data.volumeInfo.industryIdentifiers[0].identifier : '0';
 
 }
