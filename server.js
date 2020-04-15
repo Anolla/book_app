@@ -4,6 +4,7 @@ const express = require('express');
 const superagent = require('superagent')
 const PORT = process.env.PORT || 4000;
 const cors = require('cors');
+const methodOverride = require('method-override'); //METHOD OVVERIDE
 const app = express();
 app.use(cors());
 
@@ -11,20 +12,24 @@ const pg = require('pg');
 const client = new pg.Client(process.env.DATABASE_URL)
 client.on('error', (err) => console.log(err));
 
+
 // to read ang get the data in the req.body ////middlewares
 app.use(express.static('./public'))
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method')); //METHOD OVVERIDE
 
 // setting the view engine
 app.set('view engine', 'ejs');
 
+
+app.put('/books/:id', updateBook);
+app.delete('/books/:id', deleteBook);
 
 app.get('/', (req, res) => {
     // render the index.ejs from the views folder
     const SQL = 'SELECT * FROM books;';
     client.query(SQL)
         .then((data => {
-            console.log('uedhksjzcnmx,kdfjocxj')
             res.render('pages/index', { books: data.rows });
         }))
         .catch((err) => {
@@ -65,7 +70,7 @@ app.get('/books/:id', (req, res) => {
     client
         .query(SQL, safeValue)
         .then((data) => {
-            console.log(data)
+            // console.log(data)
             res.render('pages/books/show', { book: data.rows[0] });
         })
         .catch((err) => {
@@ -89,6 +94,27 @@ app.post('/books', (req, res) => {
 
 })
 
+function updateBook(req, res) {
+    const { author, title, isbn, image_url, description, bookshelf } = req.body;
+    const SQL =
+        'UPDATE books SET author=$1,title=$2,isbn=$3,image_url=$4,description=$5,bookshelf=$6 WHERE id=$7';
+    const safeValues = [author, title, isbn, image_url, description, bookshelf, req.params.id];
+    client
+        .query(SQL, safeValues)
+        .then((results) => res.redirect(`/`))
+        .catch((err) => errorHandler(err, req, res));
+
+}
+
+function deleteBook(req, res) {
+    const SQL = 'DELETE FROM books WHERE id=$1';
+    const safeValue = [req.params.id];
+    client
+        .query(SQL, safeValue)
+        .then((results) => res.redirect('/'))
+        .catch((err) => errorHandler(err, req, res));
+
+}
 
 
 function Book(data) {
@@ -97,7 +123,7 @@ function Book(data) {
     this.Authors = (data.volumeInfo.authors) ? data.volumeInfo.authors : 'Author Not Found !';
     this.Description = (data.volumeInfo.description) ? data.volumeInfo.description : 'Descripton Not Found !';
     this.img_url = (data.volumeInfo.imageLinks) ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
-    this.isbn = (data.volumeInfo.industryIdentifiers[0] + data.volumeInfo.industryIdentifiers[0].identifier) ? data.volumeInfo.industryIdentifiers[0].type + data.volumeInfo.industryIdentifiers[0].identifier : '0';
+    this.isbn = (data.volumeInfo.industryIdentifiers[0].identifier) ? data.volumeInfo.industryIdentifiers[0].identifier : 'ISBN Not Found !';
 
 }
 
