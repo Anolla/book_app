@@ -2,34 +2,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/styles/base.css">
+    <%- include ('../../layout/head') %>
+
 </head>
 
 <body>
-    <div>
-        <h1>Best Books!</h1>
-    </div>
-    <h4>Search by Title or Author</h4>
 
+    <%- include('../../layout/header')  %>
 
-
-    <main>
-        <form action="/searches/show" method="POST">
-            <fieldset>
+        <h4>Search by Title or Author</h4>
+        <main>
+            <form action="/searches/show" method="POST">
                 <label>
-              <input type="search" name="input"  placeholder="Enter a title or author" />
+              <input id='searchField' type="search" name="input"  placeholder="Enter a title or author" />
             </label>
-                <div class='option'><input type="radio" id="title" name="search" value="title"> search by title </input>
+                <div class='option'><input type="radio" id="title" name="search" value="title"> Title </input>
                 </div>
-                <div class='option'> <input type="radio" id="author" name="search" value="author"> search by author </input>
+                <div class='option'> <input type="radio" id="author" name="search" value="author"> Author </input>
                 </div>
-                <button>Search the Google Books API</button>
-            </fieldset>
-        </form>
-    </main>
+                <button id='searchButton'>Search the Google Books API</button>
+            </form>
+        </main>
 </body>
 
 </html>

@@ -1,0 +1,16 @@
+ul {
+    height: 500px;
+    width: 80%;
+    text-align: center;
+}
+
+img,
+p {
+    margin: 2%;
+}
+
+div {
+    margin: 8%;
+    padding: 5%;
+    color: rgb(58, 54, 54);
+}
