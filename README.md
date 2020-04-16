@@ -18,7 +18,7 @@
 01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.
 
 ## Credits goes to :
-Our instructor Mahmoud Khudairi, my colleagues: Diana Al-azzam, Ftema Owedah,and Osama Mousa
+- Our instructor Mahmoud Khudairi, my colleagues: Diana Al-azzam, Ftema Owedah,and Osama Mousa
 
 Estimate of time needed to complete: 2 days
 Actual time needed to complete: 4 days
