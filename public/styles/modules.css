@@ -1,0 +1,27 @@
+#numofbooks {
+    background-color: darkgrey;
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    margin: 0%;
+}
+
+div {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    width: 78%;
+    margin: 7%;
+    padding: 4%;
+}
+
+p {
+    margin: 2%;
+}
+
+a {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 2%;
+}

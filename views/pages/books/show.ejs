@@ -6,25 +6,37 @@
 </head>
 
 <body>
+    <header>
+        <%- include('../../layout/header') %>
+    </header>
     <section>
         <%- include('detail') %>
     </section>
     <section>
-        <form action="/books/<%=book.id%>?_method=PUT" method="POST">
+        <form action="/books/<%=book.id%>?_method=PUT" method="POST" class='bookForm'>
             <fieldset>
                 <input type="text" name="title" value="<%=book.title%>" placeholder="Populated Title"><br />
                 <input type="text" name="author" value="<%=book.author%>" placeholder="Populated Author"><br />
                 <input type="text" name="isbn" value="<%=book.isbn%>" placeholder="Populated ISBN"><br />
                 <input type="text" name="image_url" value="<%=book.image_url %>" placeholder="Populated Image URL"><br />
                 <textarea name="description" placeholder="Populated Description" cols="30" rows="10"> <%=book.description %></textarea><br />
+                <select name="bookshelf"> 
+                    <%arrayOfBookshelf.forEach(element =>{%>
+                      <option value="<%=element.bookshelf%>"><%=element.bookshelf%></option>
+                    <% }) %>
+                </select>
                 <input type="text" name="bookshelf" value="<%=book.bookshelf %>" placeholder="Populated Bookshelf" required><br />
-                <button>update details</button> <br />
-                <form action="/books/<%=book.id%>?_method=DELETE" method="POST">
-                    <button type="submit">delete book</button>
-                </form>
+                <button type="submit">Update Book</button>
             </fieldset>
         </form>
+        <form action="/books/<%=book.id%>?_method=PUT" class='bookButton'>
+            <button type="submit">update details</button>
+        </form>
+        <form action="/books/<%=book.id%>?_method=DELETE" method="POST" class='deleteButton'>
+            <button type="submit">delete book</button>
+        </form>
     </section>
+    <script src="../../js/app.js"></script>
 </body>
 
 </html>

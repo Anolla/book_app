@@ -3,31 +3,37 @@
 
 <head>
     <%- include('../layout/head') %>
+        <link rel="stylesheet" href="/styles/modules.css">
 </head>
 
 <body>
+    <header>
+        <%- include('../layout/header') %>
+    </header>
+    <p id='numofbooks'>
+        <%=books.length%> Saved Books</p>
 
-    <div>
-        <p>
-            <%=books.length%> Total number of books</p>
-    </div>
-    <div>
-        <ul>
-            <% books.forEach(element => { %>
 
-                <p>
-                    <%=element.title %>
-                </p>
-                <p>
-                    <img src=<%=element.image_url %>>
-                </p>
-                <p>
-                    <%=element.author%>
-                </p>
-                <p><a href="/books/<%=element.id%>">View Details</a></p>
-                <% }) %>
-        </ul>
-    </div>
+    <ul>
+        <% books.forEach(element => { %>
+            <li>
+                <div>
+
+                    <p>
+                        <img src=<%=element.image_url %>>
+                    </p>
+                    <p>
+                        <%=element.title %>
+                    </p>
+                    <p>
+                        <%=element.author%>
+                    </p>
+                    <p><a href="/books/<%=element.id%>">View Details</a></p>
+                    <% }) %>
+                </div>
+            </li>
+    </ul>
+
 
 </body>
 

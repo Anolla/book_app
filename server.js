@@ -24,6 +24,7 @@ app.set('view engine', 'ejs');
 
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
+app.get('/books/:id', selectBookshelf);
 
 app.get('/', (req, res) => {
     // render the index.ejs from the views folder
@@ -46,8 +47,8 @@ app.get('/searches/new', (req, res) => {
 // })
 
 app.post('/searches/show', (req, res) => {
-    let url = `https://www.googleapis.com/books/v1/volumes?q=quilting`
-    console.log('udukdjzkoilujlkjk')
+    let url;
+    // console.log('udukdjzkoilujlkjk')
     if (req.body.search === 'title') {
         url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}:${req.body.input}`
     } else if (req.body.search === 'author') {
@@ -58,11 +59,16 @@ app.post('/searches/show', (req, res) => {
             let books = data.body.items.map((element) => {
                 return new Book(element);
             })
+
             res.render('pages/searches/show', { books: books })
-        }).catch((err) => {
-            errorHandler(err, req, res);
-        });
+        })
+
+    .catch((err) => {
+        errorHandler(err, req, res);
+    });
+
 });
+
 
 app.get('/books/:id', (req, res) => {
     const SQL = 'SELECT * FROM books WHERE id=$1;';
@@ -116,6 +122,22 @@ function deleteBook(req, res) {
 
 }
 
+function selectBookshelf(req, res) {
+    let SQL = `SELECT * FROM books WHERE id = $1;`
+    let SQL2 = 'SELECT DISTINCT bookshelf FROM books;'
+    let bookId = [req.params.id];
+    let arrayOfBookshelf = [];
+    client.query(SQL2)
+        .then(result => {
+            arrayOfBookshelf = result.rows;
+        })
+    return client.query(SQL, bookId)
+        .then(result => {
+            res.render('./pages/books/show', { book: result.rows[0], arrayOfBookshelf: arrayOfBookshelf })
+        })
+}
+
+
 
 function Book(data) {
 
@@ -123,7 +145,7 @@ function Book(data) {
     this.Authors = (data.volumeInfo.authors) ? data.volumeInfo.authors : 'Author Not Found !';
     this.Description = (data.volumeInfo.description) ? data.volumeInfo.description : 'Descripton Not Found !';
     this.img_url = (data.volumeInfo.imageLinks) ? data.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
-    this.isbn = (data.volumeInfo.industryIdentifiers[0].identifier) ? data.volumeInfo.industryIdentifiers[0].identifier : 'ISBN Not Found !';
+    this.isbn = (data.volumeInfo.industryIdentifiers) ? data.volumeInfo.industryIdentifiers : 'ISBN Not Found !';
 
 }
 

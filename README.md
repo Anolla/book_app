@@ -1,6 +1,6 @@
 # book_app
 
-**Author**: Your Name Goes Here
+**Author**: Anolla Haddad
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
@@ -17,43 +17,9 @@
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.
 
-## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+## Credits goes to :
+Our instructor Mahmoud Khudairi, my colleagues: Diana Al-azzam, Ftema Owedah,and Osama Mousa
 
-
-Number and name of feature: 1. As a user, I want my application to load quickly so that I have an enjoyable experience.
-
-Estimate of time needed to complete: _____
-Actual time needed to complete: _____
-
-
-Number and name of feature:2. As a user, I want to search the Google Books API so that I can view the results of my search.
-
-Estimate of time needed to complete: _____
-Actual time needed to complete: _____
-
-
-Number and name of feature: 3. As a user, I want to be able to browse the search results.
-
-Estimate of time needed to complete: _____
-Actual time needed to complete: _____
-
-
-Number and name of feature: 4. As a user, I want to view any error messages that occur during the usage of my book list application so that I know if something has gone wrong.
-
-Estimate of time needed to complete: _____
-Actual time needed to complete: _____
-
-
-Number and name of feature: 5. As a user, I want a simple, clean looking UI so that my application is easy to navigate.
-
-Estimate of time needed to complete: _____
-Actual time needed to complete: _____
-
-
-Number and name of feature: 6. As a user, I want the application to have a home page, so that I can see see relevant information
-
-Estimate of time needed to complete: _____
-Actual time needed to complete: _____
+Estimate of time needed to complete: 2 days
+Actual time needed to complete: 4 days
 
